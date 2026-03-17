@@ -7,11 +7,12 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
-  // Calculate total amount for all products in the cart parseFloat(item.cost.substring(1))
+  // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
-    return cart.reduce((total, item) => total + (parseFloat(item.cost.substring(1)) * item.quantity), 0);
+    //multiple quantity with price Extract the numeric value from the item's cost string using parseFloat(item.cost.substring(1)) before performing the multiplication.
+    return cart.reduce((total, item) => total + (parseFloat(item.cost.substring(1)) * item.quantity), 0).toFixed(2); // Return the total amount formatted to 2 decimal places
   };
-  
+
   const handleContinueShopping = (e) => {
     e.preventDefault();
     onContinueShopping(); // Call the function passed from the parent component to navigate back to the product list
@@ -44,6 +45,8 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    return (parseFloat(item.cost.substring(1)) * item.quantity).toFixed(2); // Return the total cost for the item formatted to 2 decimal places
+
   };
 
   return (

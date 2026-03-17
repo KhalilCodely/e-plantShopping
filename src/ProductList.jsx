@@ -252,7 +252,10 @@ const calculateTotalQuantity = () => {
         e.preventDefault();
         onHomeClick();
     };
-
+ 
+    const isInCart = (plantName) => {
+  return cartItems.some(item => item.name === plantName);
+};
     const handleCartClick = (e) => {
         e.preventDefault();
         setShowCart(true); // Set showCart to true when cart icon is clicked
@@ -314,12 +317,12 @@ const calculateTotalQuantity = () => {
           {/* Display other plant details like description and cost */}
           <div className="product-description">{plant.description}</div> {/* Display plant description */}
           <div className="product-cost">{plant.cost}</div> {/* Display plant cost */}
-          <button
+<button
   className="product-button"
   onClick={() => handleAddToCart(plant)}
-  disabled={addedToCart[plant.name]}
+  disabled={isInCart(plant.name)}
 >
-  {addedToCart[plant.name] ? "Added To Cart " : "Add to Cart"}
+  {isInCart(plant.name) ? "Added To Cart" : "Add to Cart"}
 </button>
         </div>
       ))}
