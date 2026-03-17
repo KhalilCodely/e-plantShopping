@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import './ProductList.css'
+import React, { useState } from 'react';
+import './ProductList.css';
 import CartItem from './CartItem';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CartSlice';
 
 function ProductList({ onHomeClick }) {
     const dispatch = useDispatch();
+     const cartItems = useSelector((state) => state.cart.items);
+    
     const [addedToCart, setAddedToCart] = useState({});
     
     const [showCart, setShowCart] = useState(false);
@@ -239,6 +241,12 @@ function ProductList({ onHomeClick }) {
         textDecoration: 'none',
     }
 
+const calculateTotalQuantity = () => {
+  return cartItems
+    ? cartItems.reduce((total, item) => total + item.quantity, 0)
+    : 0;
+};
+
     const handleHomeClick = (e) => {
         
         e.preventDefault();
@@ -311,7 +319,7 @@ function ProductList({ onHomeClick }) {
   onClick={() => handleAddToCart(plant)}
   disabled={addedToCart[plant.name]}
 >
-  {addedToCart[plant.name] ? "Added" : "Add to Cart"}
+  {addedToCart[plant.name] ? "Added To Cart " : "Add to Cart"}
 </button>
         </div>
       ))}

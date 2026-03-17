@@ -7,11 +7,11 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
-  // Calculate total amount for all products in the cart
+  // Calculate total amount for all products in the cart parseFloat(item.cost.substring(1))
   const calculateTotalAmount = () => {
-    return cart.reduce((total, item) => total + (item.cost * item.quantity), 0);
+    return cart.reduce((total, item) => total + (parseFloat(item.cost.substring(1)) * item.quantity), 0);
   };
-
+  
   const handleContinueShopping = (e) => {
     e.preventDefault();
     onContinueShopping(); // Call the function passed from the parent component to navigate back to the product list
